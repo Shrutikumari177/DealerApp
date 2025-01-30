@@ -56,7 +56,7 @@ POST http://localhost:4004/odata/v4/dealer/MapRetailer
 Content-Type: application/json
 
 {
-  "OC_OCID": "20250129OC10000000",
+  "SerialNo": "10011194",
   "RetailerId": "1",
   "TaxNo": "AK12346"
 }

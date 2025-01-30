@@ -304,7 +304,7 @@ module.exports = async (srv) => {
                 await externalService.run(
                     UPDATE('MaterialBox')
                         .set({ RetailerId, RetailerTaxNo: TaxNo })
-                        .where({ SerialNo })
+                        .where({ SerialNo ,BoxQRCode:existingBox.BoxQRCode })
                 );
     
                 return `MaterialBox ${SerialNo} has been successfully mapped to Retailer ${RetailerId}.`;
