@@ -1,0 +1,429 @@
+{
+ "meta": {
+  "creator": "cds-dk 8.6.1"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "QrGeneratorApp_edmx.getBatchIDRelevantData": {
+   "kind": "function",
+   "@cds.external": true,
+   "params": {
+    "BatchNo": {
+     "type": "cds.LargeString"
+    },
+    "ManufactureDt": {
+     "type": "cds.Date"
+    },
+    "filterNonEmptyBoxQRCode": {
+     "type": "cds.Boolean"
+    },
+    "filterNoEmptyICID": {
+     "type": "cds.Boolean"
+    }
+   },
+   "returns": {
+    "items": {
+     "type": "QrGeneratorApp_edmx.return_trackservice_getBatchIDRelevantData"
+    }
+   }
+  },
+  "QrGeneratorApp_edmx.MaterialBox": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "createdAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Immutable": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Created On"
+    },
+    "createdBy": {
+     "type": "cds.String",
+     "length": 255,
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Immutable": true,
+     "@Core.Computed": true,
+     "doc": "User's unique ID",
+     "@Common.Label": "Created By"
+    },
+    "modifiedAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Changed On"
+    },
+    "modifiedBy": {
+     "type": "cds.String",
+     "length": 255,
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Computed": true,
+     "doc": "User's unique ID",
+     "@Common.Label": "Changed By"
+    },
+    "SerialNo": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "BoxQRCode": {
+     "key": true,
+     "type": "cds.String",
+     "length": 255,
+     "notNull": true
+    },
+    "BoxID": {
+     "type": "cds.LargeString"
+    },
+    "BoxQRCodeURL": {
+     "type": "cds.LargeString"
+    },
+    "BatchID": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "IC": {
+     "type": "cds.Association",
+     "target": "QrGeneratorApp_edmx.InnerContainer",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "IC_ICID": {
+     "type": "cds.LargeString"
+    },
+    "IC_ICQRCodeURL": {
+     "type": "cds.LargeString"
+    },
+    "IC_ICQRCode": {
+     "type": "cds.LargeString"
+    },
+    "DealerId": {
+     "type": "cds.LargeString"
+    },
+    "DealerName": {
+     "type": "cds.LargeString"
+    },
+    "RetailerId": {
+     "type": "cds.LargeString"
+    },
+    "RetailerTaxNo": {
+     "type": "cds.LargeString"
+    }
+   }
+  },
+  "QrGeneratorApp_edmx.InnerContainer": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "createdAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Immutable": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Created On"
+    },
+    "createdBy": {
+     "type": "cds.String",
+     "length": 255,
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Immutable": true,
+     "@Core.Computed": true,
+     "doc": "User's unique ID",
+     "@Common.Label": "Created By"
+    },
+    "modifiedAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Changed On"
+    },
+    "modifiedBy": {
+     "type": "cds.String",
+     "length": 255,
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Computed": true,
+     "doc": "User's unique ID",
+     "@Common.Label": "Changed By"
+    },
+    "ICID": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "ICQRCodeURL": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "ICQRCode": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "BatchID": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "Boxes": {
+     "type": "cds.Composition",
+     "target": "QrGeneratorApp_edmx.MaterialBox",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "OC": {
+     "type": "cds.Association",
+     "target": "QrGeneratorApp_edmx.OuterContainer",
+     "cardinality": {
+      "max": 1
+     },
+     "keys": []
+    },
+    "OC_OCID": {
+     "type": "cds.LargeString"
+    },
+    "OC_OCQRCodeURL": {
+     "type": "cds.LargeString"
+    },
+    "OC_OCQRCode": {
+     "type": "cds.LargeString"
+    },
+    "SalesOrder": {
+     "type": "cds.LargeString"
+    },
+    "DealerId": {
+     "type": "cds.LargeString"
+    },
+    "DealerName": {
+     "type": "cds.LargeString"
+    },
+    "RetailerId": {
+     "type": "cds.LargeString"
+    },
+    "RetailerTaxNo": {
+     "type": "cds.LargeString"
+    }
+   }
+  },
+  "QrGeneratorApp_edmx.OuterContainer": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "createdAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Immutable": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Created On"
+    },
+    "createdBy": {
+     "type": "cds.String",
+     "length": 255,
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Immutable": true,
+     "@Core.Computed": true,
+     "doc": "User's unique ID",
+     "@Common.Label": "Created By"
+    },
+    "modifiedAt": {
+     "type": "cds.Timestamp",
+     "@odata.Precision": 7,
+     "@odata.Type": "Edm.DateTimeOffset",
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Computed": true,
+     "@Common.Label": "Changed On"
+    },
+    "modifiedBy": {
+     "type": "cds.String",
+     "length": 255,
+     "@UI.HiddenFilter": true,
+     "@UI.ExcludeFromNavigationContext": true,
+     "@Core.Computed": true,
+     "doc": "User's unique ID",
+     "@Common.Label": "Changed By"
+    },
+    "OCID": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "OCQRCodeURL": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "OCQRCode": {
+     "key": true,
+     "type": "cds.LargeString",
+     "notNull": true
+    },
+    "BatchID": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "status": {
+     "type": "cds.LargeString"
+    },
+    "ICs": {
+     "type": "cds.Composition",
+     "target": "QrGeneratorApp_edmx.InnerContainer",
+     "cardinality": {
+      "max": "*"
+     },
+     "keys": []
+    },
+    "DealerId": {
+     "type": "cds.LargeString"
+    },
+    "DealerName": {
+     "type": "cds.LargeString"
+    },
+    "SalesOrder": {
+     "type": "cds.LargeString"
+    },
+    "RetailerId": {
+     "type": "cds.LargeString"
+    },
+    "RetailerTaxNo": {
+     "type": "cds.LargeString"
+    }
+   }
+  },
+  "QrGeneratorApp_edmx.zbatchdetails_Track": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "BatchNo": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    },
+    "SerialNo": {
+     "key": true,
+     "type": "cds.String",
+     "length": 18,
+     "notNull": true
+    },
+    "Material": {
+     "type": "cds.String",
+     "length": 40
+    },
+    "aufnr": {
+     "type": "cds.String",
+     "length": 12
+    },
+    "ManufactureDt": {
+     "type": "cds.Date"
+    },
+    "ExpiryDt": {
+     "type": "cds.Date"
+    },
+    "ProductionOrder": {
+     "type": "cds.String",
+     "length": 12
+    },
+    "OrderList": {
+     "type": "cds.Integer64"
+    }
+   }
+  },
+  "QrGeneratorApp_edmx.zbatchno_track": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "BatchNo": {
+     "key": true,
+     "type": "cds.String",
+     "length": 10,
+     "notNull": true
+    }
+   }
+  },
+  "QrGeneratorApp_edmx.return_trackservice_getBatchIDRelevantData": {
+   "kind": "type",
+   "@cds.external": true,
+   "elements": {
+    "BatchNo": {
+     "type": "cds.LargeString"
+    },
+    "SerialNo": {
+     "type": "cds.LargeString"
+    },
+    "Material": {
+     "type": "cds.LargeString"
+    },
+    "ManufactureDt": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset"
+    },
+    "ExpiryDt": {
+     "type": "cds.DateTime",
+     "@odata.Precision": 0,
+     "@odata.Type": "Edm.DateTimeOffset"
+    },
+    "ProductionOrder": {
+     "type": "cds.Integer"
+    },
+    "BoxQRCode": {
+     "type": "cds.LargeString"
+    },
+    "BoxQRCodeURL": {
+     "type": "cds.LargeString"
+    },
+    "ICID": {
+     "type": "cds.LargeString"
+    },
+    "ICQRCode": {
+     "type": "cds.LargeString"
+    },
+    "ICQRCodeURL": {
+     "type": "cds.LargeString"
+    },
+    "OCID": {
+     "type": "cds.LargeString"
+    },
+    "OCQRCode": {
+     "type": "cds.LargeString"
+    },
+    "OCQRCodeURL": {
+     "type": "cds.LargeString"
+    }
+   }
+  },
+  "QrGeneratorApp_edmx": {
+   "kind": "service",
+   "@cds.external": true
+  }
+ }
+}

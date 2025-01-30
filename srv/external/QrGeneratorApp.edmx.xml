@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="trackservice" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <Annotation Term="Core.Links">
+        <Collection>
+          <Record>
+            <PropertyValue Property="rel" String="author"/>
+            <PropertyValue Property="href" String="https://cap.cloud.sap"/>
+          </Record>
+        </Collection>
+      </Annotation>
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="MaterialBox" EntityType="trackservice.MaterialBox">
+          <NavigationPropertyBinding Path="IC" Target="InnerContainer"/>
+        </EntitySet>
+        <EntitySet Name="InnerContainer" EntityType="trackservice.InnerContainer">
+          <NavigationPropertyBinding Path="Boxes" Target="MaterialBox"/>
+          <NavigationPropertyBinding Path="OC" Target="OuterContainer"/>
+        </EntitySet>
+        <EntitySet Name="OuterContainer" EntityType="trackservice.OuterContainer">
+          <NavigationPropertyBinding Path="ICs" Target="InnerContainer"/>
+        </EntitySet>
+        <EntitySet Name="zbatchdetails_Track" EntityType="trackservice.zbatchdetails_Track"/>
+        <EntitySet Name="zbatchno_track" EntityType="trackservice.zbatchno_track"/>
+        <FunctionImport Name="getBatchIDRelevantData" Function="trackservice.getBatchIDRelevantData"/>
+      </EntityContainer>
+      <EntityType Name="MaterialBox">
+        <Key>
+          <PropertyRef Name="SerialNo"/>
+          <PropertyRef Name="BoxQRCode"/>
+        </Key>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="SerialNo" Type="Edm.String" Nullable="false"/>
+        <Property Name="BoxQRCode" Type="Edm.String" MaxLength="255" Nullable="false"/>
+        <Property Name="BoxID" Type="Edm.String"/>
+        <Property Name="BoxQRCodeURL" Type="Edm.String"/>
+        <Property Name="BatchID" Type="Edm.String" MaxLength="50"/>
+        <NavigationProperty Name="IC" Type="trackservice.InnerContainer" Partner="Boxes">
+          <ReferentialConstraint Property="IC_ICID" ReferencedProperty="ICID"/>
+          <ReferentialConstraint Property="IC_ICQRCodeURL" ReferencedProperty="ICQRCodeURL"/>
+          <ReferentialConstraint Property="IC_ICQRCode" ReferencedProperty="ICQRCode"/>
+        </NavigationProperty>
+        <Property Name="IC_ICID" Type="Edm.String"/>
+        <Property Name="IC_ICQRCodeURL" Type="Edm.String"/>
+        <Property Name="IC_ICQRCode" Type="Edm.String"/>
+        <Property Name="DealerId" Type="Edm.String"/>
+        <Property Name="DealerName" Type="Edm.String"/>
+        <Property Name="RetailerId" Type="Edm.String"/>
+        <Property Name="RetailerTaxNo" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="InnerContainer">
+        <Key>
+          <PropertyRef Name="ICID"/>
+          <PropertyRef Name="ICQRCodeURL"/>
+          <PropertyRef Name="ICQRCode"/>
+        </Key>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="ICID" Type="Edm.String" Nullable="false"/>
+        <Property Name="ICQRCodeURL" Type="Edm.String" Nullable="false"/>
+        <Property Name="ICQRCode" Type="Edm.String" Nullable="false"/>
+        <Property Name="BatchID" Type="Edm.String" MaxLength="50"/>
+        <NavigationProperty Name="Boxes" Type="Collection(trackservice.MaterialBox)" Partner="IC">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="OC" Type="trackservice.OuterContainer" Partner="ICs">
+          <ReferentialConstraint Property="OC_OCID" ReferencedProperty="OCID"/>
+          <ReferentialConstraint Property="OC_OCQRCodeURL" ReferencedProperty="OCQRCodeURL"/>
+          <ReferentialConstraint Property="OC_OCQRCode" ReferencedProperty="OCQRCode"/>
+        </NavigationProperty>
+        <Property Name="OC_OCID" Type="Edm.String"/>
+        <Property Name="OC_OCQRCodeURL" Type="Edm.String"/>
+        <Property Name="OC_OCQRCode" Type="Edm.String"/>
+        <Property Name="SalesOrder" Type="Edm.String"/>
+        <Property Name="DealerId" Type="Edm.String"/>
+        <Property Name="DealerName" Type="Edm.String"/>
+        <Property Name="RetailerId" Type="Edm.String"/>
+        <Property Name="RetailerTaxNo" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="OuterContainer">
+        <Key>
+          <PropertyRef Name="OCID"/>
+          <PropertyRef Name="OCQRCodeURL"/>
+          <PropertyRef Name="OCQRCode"/>
+        </Key>
+        <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+        <Property Name="OCID" Type="Edm.String" Nullable="false"/>
+        <Property Name="OCQRCodeURL" Type="Edm.String" Nullable="false"/>
+        <Property Name="OCQRCode" Type="Edm.String" Nullable="false"/>
+        <Property Name="BatchID" Type="Edm.String" MaxLength="50"/>
+        <Property Name="status" Type="Edm.String"/>
+        <NavigationProperty Name="ICs" Type="Collection(trackservice.InnerContainer)" Partner="OC">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <Property Name="DealerId" Type="Edm.String"/>
+        <Property Name="DealerName" Type="Edm.String"/>
+        <Property Name="SalesOrder" Type="Edm.String"/>
+        <Property Name="RetailerId" Type="Edm.String"/>
+        <Property Name="RetailerTaxNo" Type="Edm.String"/>
+      </EntityType>
+      <EntityType Name="zbatchdetails_Track">
+        <Key>
+          <PropertyRef Name="BatchNo"/>
+          <PropertyRef Name="SerialNo"/>
+        </Key>
+        <Property Name="BatchNo" Type="Edm.String" MaxLength="10" Nullable="false"/>
+        <Property Name="SerialNo" Type="Edm.String" MaxLength="18" Nullable="false"/>
+        <Property Name="Material" Type="Edm.String" MaxLength="40"/>
+        <Property Name="aufnr" Type="Edm.String" MaxLength="12"/>
+        <Property Name="ManufactureDt" Type="Edm.Date"/>
+        <Property Name="ExpiryDt" Type="Edm.Date"/>
+        <Property Name="ProductionOrder" Type="Edm.String" MaxLength="12"/>
+        <Property Name="OrderList" Type="Edm.Int64"/>
+      </EntityType>
+      <EntityType Name="zbatchno_track">
+        <Key>
+          <PropertyRef Name="BatchNo"/>
+        </Key>
+        <Property Name="BatchNo" Type="Edm.String" MaxLength="10" Nullable="false"/>
+      </EntityType>
+      <ComplexType Name="return_trackservice_getBatchIDRelevantData">
+        <Property Name="BatchNo" Type="Edm.String"/>
+        <Property Name="SerialNo" Type="Edm.String"/>
+        <Property Name="Material" Type="Edm.String"/>
+        <Property Name="ManufactureDt" Type="Edm.DateTimeOffset"/>
+        <Property Name="ExpiryDt" Type="Edm.DateTimeOffset"/>
+        <Property Name="ProductionOrder" Type="Edm.Int32"/>
+        <Property Name="BoxQRCode" Type="Edm.String"/>
+        <Property Name="BoxQRCodeURL" Type="Edm.String"/>
+        <Property Name="ICID" Type="Edm.String"/>
+        <Property Name="ICQRCode" Type="Edm.String"/>
+        <Property Name="ICQRCodeURL" Type="Edm.String"/>
+        <Property Name="OCID" Type="Edm.String"/>
+        <Property Name="OCQRCode" Type="Edm.String"/>
+        <Property Name="OCQRCodeURL" Type="Edm.String"/>
+      </ComplexType>
+      <Function Name="getBatchIDRelevantData" IsBound="false" IsComposable="false">
+        <Parameter Name="BatchNo" Type="Edm.String"/>
+        <Parameter Name="ManufactureDt" Type="Edm.Date"/>
+        <Parameter Name="filterNonEmptyBoxQRCode" Type="Edm.Boolean"/>
+        <Parameter Name="filterNoEmptyICID" Type="Edm.Boolean"/>
+        <ReturnType Type="Collection(trackservice.return_trackservice_getBatchIDRelevantData)" Nullable="true"/>
+      </Function>
+      <Annotations Target="trackservice.MaterialBox/createdAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="Created On"/>
+      </Annotations>
+      <Annotations Target="trackservice.MaterialBox/createdBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="User's unique ID"/>
+        <Annotation Term="Common.Label" String="Created By"/>
+      </Annotations>
+      <Annotations Target="trackservice.MaterialBox/modifiedAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="Changed On"/>
+      </Annotations>
+      <Annotations Target="trackservice.MaterialBox/modifiedBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="User's unique ID"/>
+        <Annotation Term="Common.Label" String="Changed By"/>
+      </Annotations>
+      <Annotations Target="trackservice.InnerContainer/createdAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="Created On"/>
+      </Annotations>
+      <Annotations Target="trackservice.InnerContainer/createdBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="User's unique ID"/>
+        <Annotation Term="Common.Label" String="Created By"/>
+      </Annotations>
+      <Annotations Target="trackservice.InnerContainer/modifiedAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="Changed On"/>
+      </Annotations>
+      <Annotations Target="trackservice.InnerContainer/modifiedBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="User's unique ID"/>
+        <Annotation Term="Common.Label" String="Changed By"/>
+      </Annotations>
+      <Annotations Target="trackservice.OuterContainer/createdAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="Created On"/>
+      </Annotations>
+      <Annotations Target="trackservice.OuterContainer/createdBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Immutable" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="User's unique ID"/>
+        <Annotation Term="Common.Label" String="Created By"/>
+      </Annotations>
+      <Annotations Target="trackservice.OuterContainer/modifiedAt">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Common.Label" String="Changed On"/>
+      </Annotations>
+      <Annotations Target="trackservice.OuterContainer/modifiedBy">
+        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+        <Annotation Term="UI.ExcludeFromNavigationContext" Bool="true"/>
+        <Annotation Term="Core.Computed" Bool="true"/>
+        <Annotation Term="Core.Description" String="User's unique ID"/>
+        <Annotation Term="Common.Label" String="Changed By"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

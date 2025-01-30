@@ -1,0 +1,1 @@
+using dealerService as service from '../../srv/dealerService';

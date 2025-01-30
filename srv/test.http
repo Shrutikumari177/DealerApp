@@ -1,0 +1,69 @@
+GET http://localhost:4004/odata/v4/dealer/Retailer
+
+
+###
+GET http://localhost:4004/odata/v4/dealer/OuterContainer
+
+
+###
+POST http://localhost:4004/odata/v4/dealer/Retailer
+Content-Type: application/json
+
+{
+    "Name": "John Doe Retail",
+    "Email": "johndoe@example.com",
+    "ContactNo": "+1234567890",
+    "TaxNo": "TX123456",
+    "Street": "123 Main Street",
+    "District": "Central",
+    "City": "New York",
+    "Country": "USA",
+    "PostalCode": "10001",
+    "DealerID": "1100000003"
+}
+###
+GET http://localhost:4004/odata/v4/dealer/getDealerDashOCValueHelp?DealerId='1100000003'
+
+####
+GET http://localhost:4004/odata/v4/dealer/getOCValueHelpforRetailerMapping?DealerId='1100000003'&SelectionType='Box'
+
+
+###
+POST http://localhost:33355/odata/v4/dealer/MapRetailer
+Content-Type: application/json
+
+{
+  "OC_OCID": "20250129OC10000000",
+  "RetailerId": "1",
+  "TaxNo": "TX123456"
+}
+
+###
+GET http://localhost:4004/odata/v4/dealer/getProductionTrackingDashboardData?OCID='20250129OC10000000'
+
+
+###
+GET http://localhost:4004/odata/v4/dealer/getDealerOcIcBoxMappingdata?OCID='20250129OC10000000'
+
+###
+GET http://localhost:4004/odata/v4/dealer/getDealerOcIcBoxMappingdata?ICID='20250129IC00000001'
+
+###
+GET http://localhost:4004/odata/v4/dealer/getDealerOcIcBoxMappingdata?SerialNo='10011194'
+
+###
+POST http://localhost:4004/odata/v4/dealer/MapRetailer
+Content-Type: application/json
+
+{
+  "OC_OCID": "20250129OC10000000",
+  "RetailerId": "1",
+  "TaxNo": "AK12346"
+}
+
+###
+GET http://localhost:45407/odata/v4/dealer/getDealerOcIcBoxMappingdata?OCID='20250129OC10000000'
+
+
+
+

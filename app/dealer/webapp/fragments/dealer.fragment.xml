@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="dealerValueHelpValueHelp"
+        noDataText="Loading..."
+        title="Select Dealer"
+        search="onDealerValueHelpSearch"
+        liveChange="onDealerValueHelpSearch"
+        confirm="onDealerVendorValueConfirmItem"
+        items="{/zcustomer_sotrack}"
+        initialFocus="SearchField">
+        <StandardListItem id="_IDGenStandardListItem9" 
+            title="{Kunnr}"
+            description="{Description}"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

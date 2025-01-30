@@ -1,0 +1,94 @@
+<mvc:View
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:semantic="sap.m.semantic"
+    xmlns:core="sap.ui.core"
+    xmlns:tnt="sap.tnt"
+    xmlns:cards="sap.f.cards"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:ui="sap.ui.table"
+    xmlns:u="sap.ui.unified"
+    xmlns:c="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+    controllerName="com.ingenx.dealer.controller.RetailerRegistor"
+    displayBlock="true"
+>
+<ScrollContainer
+        id="vendorRegistorGen_ScrollContainer"
+        vertical="true"
+        height="100%"
+    >
+       <tnt:ToolHeader  id="vendorRegistorGen_ToolHeader" class="sapUiTinyMargin">
+          
+            <Title id="vendorRegistorGen_Title" textAlign="Center"  class="page_title" text="Retailer Registration" wrapping="false">
+                <layoutData>
+                    <OverflowToolbarLayoutData id="vendorRegistorGen_OverflowToolbarLayoutData" priority="Disappear"/>
+                </layoutData>
+            </Title>
+            <ToolbarSpacer id="vendorRegistorGen_ToolbarSpacer" />
+              </tnt:ToolHeader>
+
+           <l:VerticalLayout id="vendirRegistration_VerticalLayout" width="100%">
+            <l:BlockLayout id="vendirRegistration_BlockLayout" background="Dashboard">
+
+             <l:BlockLayoutRow id="vendirRegistration_BlockLayoutRow">
+                     <l:BlockLayoutCell id="registrationGenBlockLayoutCell" width="90%">
+
+                         <form:SimpleForm id="GenSimpleForm1"  class="tableBorder invMappingLayout" editable="false">
+                            <form:toolbar>
+                                <Toolbar id="registrationToolbar">
+                                    <Title id="registrationTitle1" text="Retailer Details"/>
+                                    <ToolbarSpacer id="GenToolbarSpacer4"/>
+                                   <Button  id="_IDGenButton" text="Submit" type="Emphasized" press="onSubmitRetailerDetailsData"/>
+                                </Toolbar>
+                            </form:toolbar>
+                            <form:content>
+                                <core:Title id="GenTitle1"/>
+                                <Label id="Label2" text="Retailer Name" design="Bold" class="sapUiTinyMarginTop"/>
+                                <HBox id="registrationMapping_ocCodeInputBox" >
+                                    <Input id="registrationMapping_retailerName" value="" width="200px"  />
+                                </HBox>
+                                <Label id="Label4" text="Email ID" design="Bold" class="sapUiTinyMarginTop"/>
+                                <HBox id="registrationMapping_emailHBox">
+                                    <Input id="registrationMapping_emailID" value="" width="200px" />
+                                </HBox>
+                                <Label id="Label6" text="Contact No" design="Bold" class="sapUiTinyMarginTop"/>
+                                <HBox id="registrationMapping_batchIdInputHBox">
+                                    <Input id="registrationMapping_contactNo" value="" width="200px" />
+                                </HBox>
+                                <Label id="Labe" text="Tax No" design="Bold" class="sapUiTinyMarginTop"/>
+                                <HBox id="registrationMapping_gstNoHBox">
+                                    <Input id="registrationMapping_gstNo" width="200px" value="" />
+                                </HBox>
+                                <Label id="GenLabel9" text="Postal Code" design="Bold" class="sapUiTinyMarginTop"/>
+                                <Input id="registrationmapping_postalCode"  value="" width="200px"  />
+
+
+
+                                <core:Title id="registrationTitle2"/>
+                            
+
+                                <Label id="registrationnLabel3" text="Street" design="Bold" class="sapUiTinyMarginTop"/>
+                                <HBox id="IGenHBox5">
+                                    <Input id="registrationMapping_street" width="200px"  value=""/>
+                                </HBox>
+
+                                <Label id="GenLab7" text="District" design="Bold" class="sapUiTinyMarginTop"/>
+                                <Input id="registrationMapping_district"  value="" width="200px" />    
+                                <Label id="GenLabel7" text="City" design="Bold" class="sapUiTinyMarginTop"/>
+                                <Input id="registrationMapping_city"  value="" width="200px" />                                
+                                <Label id="GenLabel8" text="Country" design="Bold" class="sapUiTinyMarginTop"/>
+                                <Input id="registrationmapping_country"  value="" width="200px"  />
+                            </form:content>
+                        </form:SimpleForm>
+                        </l:BlockLayoutCell>
+             </l:BlockLayoutRow> 
+           </l:BlockLayout>
+        </l:VerticalLayout>
+     
+            
+      
+        </ScrollContainer>
+   
+</mvc:View>

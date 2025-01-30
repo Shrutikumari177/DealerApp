@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="RetailerValueHelp"
+        noDataText="Loading..."
+        title="Select Retailer"
+        search="onRetailerValueHelpSearch"
+        liveChange="onRetailerValueHelpSearch"
+        confirm="onRetailerValueConfirmItem"
+        items="{/Retailer}"
+        initialFocus="SearchField">
+        <StandardListItem 
+            id="RetailerValueHelp_StandardListItem"
+            title="{RetailerId}"
+            description="{Name}"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

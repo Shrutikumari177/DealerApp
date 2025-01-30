@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="boxValueHelp"
+        noDataText="Loading..."
+        title="Select Inner Container"
+        search="onICValueHelpSearch"
+        liveChange="onICValueHelpSearch"
+        confirm="onBoxValueConfirmItem"
+        items="{allSelectedItemModel>/}"
+        initialFocus="SearchField">
+        <StandardListItem 
+            id="boxValueHelp_StandardListItem"
+            title="{allSelectedItemModel>SerialNo}"
+            description=""
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

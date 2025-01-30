@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://ingenxsrv:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://ingenxsrv:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://ingenxsrv:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://ingenxsrv:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://ingenxsrv:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZTRACKTRACE_VALUEHELP_SRV" xml:lang="en" sap:schema-version="1"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="zcustomer_sotrackType" sap:label="customer valuehelp" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Kunnr"/>
+                </Key>
+                <Property Name="Kunnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Customer" sap:quickinfo="Customer Number"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="35" sap:label="Name" sap:quickinfo="Name 1"/>
+            </EntityType>
+            <EntityType Name="zdistchannel_sotrackType" sap:label="Dist channel Valehelp" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="DistChannel"/>
+                </Key>
+                <Property Name="DistChannel" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Distribution Channel"/>
+            </EntityType>
+            <EntityType Name="Zdivision_sotrackType" sap:label="Division valuehelp" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Division"/>
+                </Key>
+                <Property Name="Division" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Division"/>
+            </EntityType>
+            <EntityType Name="ZMaterial_ValueHelpType" sap:label="Material Value Help" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Material"/>
+                </Key>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Material Number"/>
+            </EntityType>
+            <EntityType Name="zneworgType" sap:label="new org" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Spras"/>
+                    <PropertyRef Name="Auart"/>
+                </Key>
+                <Property Name="Spras" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Language Key"/>
+                <Property Name="Auart" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales document type" sap:quickinfo="Sales document type (not converted)"/>
+                <Property Name="AuartSpr" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Language key" sap:quickinfo="Language key for sales document type"/>
+            </EntityType>
+            <EntityType Name="zplant_soTrackType" sap:label="value help for plant" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="StorageLocation"/>
+                    <PropertyRef Name="Plant"/>
+                </Key>
+                <Property Name="StorageLocation" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Storage Location" sap:quickinfo="Storage location"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Plant"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="16" sap:label="Description" sap:quickinfo="Description of Storage Location"/>
+            </EntityType>
+            <EntityType Name="zsalesorderdetails_soType" sap:label="Detail of sales order for so" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SalesOrderType"/>
+                    <PropertyRef Name="SalesOrg"/>
+                    <PropertyRef Name="DistChannel"/>
+                    <PropertyRef Name="Division"/>
+                    <PropertyRef Name="Auart"/>
+                </Key>
+                <Property Name="SalesOrderType" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Language key" sap:quickinfo="Language key for sales document type"/>
+                <Property Name="SalesOrg" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales Organization"/>
+                <Property Name="DistChannel" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Distribution Channel"/>
+                <Property Name="Division" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Division"/>
+                <Property Name="Auart" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales Document Type"/>
+                <Property Name="Kopgr" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Screen sequence grp." sap:quickinfo="Screen sequence group for document header &amp; item"/>
+                <NavigationProperty Name="to_ta" Relationship="ZTRACKTRACE_VALUEHELP_SRV.assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213" FromRole="FromRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213" ToRole="ToRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213"/>
+            </EntityType>
+            <EntityType Name="zsalesorder_tracksoType" sap:label="sales order valuehelp" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SalesOrder"/>
+                </Key>
+                <Property Name="SalesOrder" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Sales document" sap:quickinfo="Sales Document"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="40" sap:label="Description" sap:quickinfo="Search term for product proposal"/>
+            </EntityType>
+            <EntityType Name="zsalesorg_trackType" sap:label="salesorg valuehelp" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SalesOrg"/>
+                </Key>
+                <Property Name="SalesOrg" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales Organization"/>
+            </EntityType>
+            <Association Name="assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213" sap:content-version="1">
+                <End Type="ZTRACKTRACE_VALUEHELP_SRV.zsalesorderdetails_soType" Multiplicity="1" Role="FromRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213"/>
+                <End Type="ZTRACKTRACE_VALUEHELP_SRV.zneworgType" Multiplicity="*" Role="ToRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213"/>
+            </Association>
+            <EntityContainer Name="ZTRACKTRACE_VALUEHELP_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="zcustomer_sotrack" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zcustomer_sotrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zdistchannel_sotrack" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zdistchannel_sotrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="Zdivision_sotrack" EntityType="ZTRACKTRACE_VALUEHELP_SRV.Zdivision_sotrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZMaterial_ValueHelp" EntityType="ZTRACKTRACE_VALUEHELP_SRV.ZMaterial_ValueHelpType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zneworg" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zneworgType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zplant_soTrack" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zplant_soTrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zsalesorderdetails_so" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zsalesorderdetails_soType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zsalesorder_trackso" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zsalesorder_tracksoType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zsalesorg_track" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zsalesorg_trackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213" Association="ZTRACKTRACE_VALUEHELP_SRV.assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="zsalesorderdetails_so" Role="FromRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213"/>
+                    <End EntitySet="zneworg" Role="ToRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotations Target="ZTRACKTRACE_VALUEHELP_SRV.ZTRACKTRACE_VALUEHELP_SRV_Entities"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://ingenxsrv:8001/sap/opu/odata/sap/ZTRACKTRACE_VALUEHELP_SRV/$metadata"
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+                <atom:link rel="latest-version" href="http://ingenxsrv:8001/sap/opu/odata/sap/ZTRACKTRACE_VALUEHELP_SRV/$metadata"
+                    xmlns:atom="http://www.w3.org/2005/Atom"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>

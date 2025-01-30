@@ -1,0 +1,449 @@
+<mvc:View
+    xmlns:l="sap.ui.layout"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:ndc="sap.ndc"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    controllerName="com.ingenx.dealer.controller.DealerDashboard"
+    height="100%"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+>
+    <tnt:ToolHeader
+        id="DealerDashboard_toolheader"
+        class="sapUiTinyMargin"
+    >
+        <Title
+            id="DealerDashboard_Title"
+            textAlign="Center"
+            text="Dealer Dashboard"
+            wrapping="false"
+            class="page_title"
+        >
+            <layoutData>
+                <OverflowToolbarLayoutData
+                    id="DealerDashboard_OverflowToolbarLayoutData"
+                    priority="Disappear"
+                />
+            </layoutData>
+        </Title>
+        <ToolbarSpacer id="DealerDashboard_ToolbarSpacer1" />
+    </tnt:ToolHeader>
+
+    <l:ResponsiveSplitter
+        id="DealerDashboard_ResponsiveSplitter"
+        defaultPane="default"
+    >
+        <l:PaneContainer
+            id="DealerDashboard_PaneContainer"
+            resize=".onRootContainerResize"
+        >
+            <!-- First Pane: Fixed Height 20% -->
+            <l:SplitPane
+                requiredParentWidth="400"
+                id="DealerDashboard_SplitPane1"
+            >
+                <l:layoutData>
+                    <l:SplitterLayoutData
+                        id="DealerDashboard_SplitterLayoutData"
+                        size="25%"
+                    />
+                </l:layoutData>
+                <Panel
+                    id="DealerDashboard_OCPanel"
+                    headerText="OCs"
+                    height="100%"
+                >
+                    <HBox
+                        id="DealerDashboard_ScannerHBox"
+                        class="scanner_btn sapUiTinyMarginBegin"
+                    >
+                        <Label
+                            id="DealerDashboard_ScannerLabel"
+                            text="SCAN BARCODE"
+                            class="sapUiSmallMarginEnd"
+                            design="Bold"
+                        />
+                        <ndc:BarcodeScannerButton
+                            id="DealerDashboard_BarcodeScannerButton"
+                            width="10%"
+                            scanSuccess="onScanSuccess"
+                            scanFail="onScanError"
+                            inputLiveUpdate="onScanLiveupdate"
+                        />
+                    </HBox>
+
+                    <List
+                        id="DealerDashboard_OCList"
+                        growing="true"
+                        growingScrollToLoad="true"
+                        growingThreshold="5"
+                        items="{path: 'OCModel>/OCData'}"
+                    >
+                        <ObjectListItem
+                            id="DealerDashboard_OCItem"
+                            title="OC Code"
+                            type="Navigation"
+                            press="onSelectContract"
+                        >
+                            <ObjectAttribute
+                                id="DealerDashboard_OCID"
+                                text="{OCModel>OCID}"
+                            />
+                        </ObjectListItem>
+                    </List>
+                </Panel>
+            </l:SplitPane>
+
+            <!-- Middle Pane: Auto Height -->
+            <l:SplitPane
+                requiredParentWidth="400"
+                id="DealerDashboard_SplitPane2"
+            >
+                <l:layoutData>
+                    <l:SplitterLayoutData
+                        id="DealerDashboard_SplitterLayoutData2"
+                        size="auto"
+                    />
+                </l:layoutData>
+                <Panel
+                    id="DealerDashboard_OCDetailedPanel"
+                    headerText="OC Details"
+                    height="100%"
+                >
+                    <HBox
+                        id="DealerDashboard_OCDetailFormHBox"
+                        class="dealerDetail_form"
+                    >
+                        <f:SimpleForm
+                            id="DealerDashboard_OCSimpleForm1"
+                            editable="false"
+                            layout="ResponsiveGridLayout"
+                            singleContainerFullSize="false"
+                            class="formClass"
+                            width="100%"
+                            visible="{isDisplayModel>/isDisplay}"
+                        >
+                            <f:content>
+                                <VBox id="DealerDashboard_OCDetailsVBox">
+                                    <HBox id="DealerDashboard_OCCodeHBox">
+                                        <Label
+                                            id="DealerDashboard_OCCodeLabel"
+                                            text="OC Code :"
+                                        />
+                                        <Text
+                                            id="DealerDashboard_OCCodeText"
+                                            text="{newModel>/OCID}"
+                                            class="sapUiSmallMarginBegin"
+                                        />
+                                    </HBox>
+                                    <HBox
+                                        id="DealerDashboard_BatchNoHBox"
+                                        class="sapUiSmallMarginTop"
+                                    >
+                                        <Label
+                                            id="DealerDashboard_BatchNoLabel"
+                                            text="Batch No :"
+                                        />
+                                        <Text
+                                            id="DealerDashboard_BatchNoText"
+                                            text="{newModel>/BatchID}"
+                                            class="sapUiSmallMarginBegin"
+                                        />
+                                    </HBox>
+                                    <HBox
+                                        id="DealerDashboard_ProductCodeHBox"
+                                        class="sapUiSmallMarginTop"
+                                    >
+                                        <Label
+                                            id="DealerDashboard_ProductCodeLabel1"
+                                            text="Product Code :"
+                                        />
+                                        <Text
+                                            id="DealerDashboard_ProductCodeText1"
+                                            text="{newModel>/Material}"
+                                            class="sapUiSmallMarginBegin"
+                                        />
+                                    </HBox>
+                                </VBox>
+                            </f:content>
+                        </f:SimpleForm>
+
+                        <f:SimpleForm
+                            id="DealerDashboard_OCSimpleForm2"
+                            editable="false"
+                            layout="ResponsiveGridLayout"
+                            singleContainerFullSize="false"
+                            class="formClass"
+                            width="100%"
+                            visible="{isDisplayModel>/isDisplay}"
+                        >
+                            <f:content>
+                                <VBox
+                                    id="DealerDashboard_ProductionDetailsVBox"
+                                >
+                                    <HBox id="DealerDashboard_ProductionIDHBox">
+                                        <Label
+                                            id="DealerDashboard_ProductionIDLabel1"
+                                            text="Production ID :"
+                                        />
+                                        <Text
+                                            id="DealerDashboard_ProductionIDText1"
+                                            text="{newModel>/ProductionOrder}"
+                                            class="sapUiSmallMarginBegin"
+                                        />
+                                    </HBox>
+                                  
+                                    <HBox
+                                        id="DealerDashboard_ICUnitHBox"
+                                        class="sapUiSmallMarginTop"
+                                    >
+                                        <Label
+                                            id="DealerDashboard_ICUnitLabel"
+                                            text="IC Unit :"
+                                        />
+                                        <Text
+                                            id="DealerDashboard_ICUnitText"
+                                            text="{path:'newModel>/ICs', formatter:'.lengthFormatter'}"
+                                            class="sapUiSmallMarginBegin"
+                                        />
+                                    </HBox>
+                                      <HBox
+                                        id="DealerDashboard_BoxUnitHBox"
+                                        class="sapUiSmallMarginTop"
+                                    >
+                                        <Label
+                                            id="DealerDashboard_BoxUnitLabel"
+                                            text="Box Unit :"
+                                        />
+                                        <Text
+                                            id="DealerDashboard_BoxUnitText"
+                                            text="{path:'newModel>/ICs', formatter:'.boxLengthFormatter'}"
+                                            class="sapUiSmallMarginBegin"
+                                        />
+                                    </HBox>
+                                </VBox>
+                            </f:content>
+                        </f:SimpleForm>
+                    </HBox>
+
+                    <Dialog
+                        id="DealerDashboard_QRDialog"
+                        title="QR Code"
+                        stretchOnPhone="true"
+                    >
+                        <customHeader>
+                            <Toolbar id="DealerDashboard_Toolbar">
+                                <Title
+                                    id="DealerDashboard_QRTitle"
+                                    text="QR Code"
+                                />
+                                <ToolbarSpacer
+                                    id="DealerDashboard_ToolbarSpacer"
+                                />
+                                <Button
+                                    id="DealerDashboard_CloseQRButton"
+                                    icon="sap-icon://decline"
+                                    press="onCloseQRDialog"
+                                />
+                            </Toolbar>
+                        </customHeader>
+                        <content>
+                            <Image
+                                class="qrImage"
+                                id="DealerDashboard_QRImage"
+                                src=""
+                                width="200px"
+                                height="200px"
+                            />
+                        </content>
+                        <buttons>
+                            <Button
+                                id="DealerDashboard_PrintQRButton"
+                                text="Print QR"
+                                press="onDealerDashboardPrintQR"
+                                type="Emphasized"
+                            />
+                        </buttons>
+                    </Dialog>
+
+                    <Table
+                        id="DealerDashboard_MaterialTable"
+                        width="auto"
+                        contextualWidth="Auto"
+                        class="borderedTable sapUiTinyMarginTop"
+                        sticky="ColumnHeaders"
+                        selectionChange="onSelectionChange"
+                        items="{newArrayModel>/}"
+                        visible="{isDisplayModel>/isDisplay}"
+                    >
+                        <headerToolbar>
+                            <OverflowToolbar
+                                id="DealerDashboard_OverflowToolbar"
+                            >
+                                <Title
+                                    id="DealerDashboard_MaterialTitle"
+                                    text="Material Information"
+                                    textAlign="Center"
+                                    level="H2"
+                                />
+                                <ToolbarSpacer
+                                    id="DealerDashboard_OverflowToolbarSpacer"
+                                />
+                            </OverflowToolbar>
+                        </headerToolbar>
+
+                        <columns>
+                            <Column
+                                id="DealerDashboard_ICIDColumn"
+                                width="70px"
+                                hAlign="Center"
+                                mergeDuplicates="true"
+                            >
+                                <Label
+                                    id="DealerDashboard_ICIDLabel"
+                                    text="IC ID"
+                                />
+                            </Column>
+                            <Column
+                                id="DealerDashboard_SerialNoColumn"
+                                width="70px"
+                                hAlign="Center"
+                                mergeDuplicates="true"
+                            >
+                                <Label
+                                    id="DealerDashboard_SerialNoLabel"
+                                    text="Serial No"
+                                />
+                            </Column>
+                            <Column
+                                id="DealerDashboard_ProductCodeColumn"
+                                width="70px"
+                                hAlign="Center"
+                            >
+                                <Label
+                                    id="DealerDashboard_ProductCodeLabel"
+                                    text="Product Code"
+                                />
+                            </Column>
+                         
+                            <Column
+                                id="DealerDashboard_ManufacturingDateColumn"
+                                width="70px"
+                                hAlign="Center"
+                            >
+                                <Label
+                                    id="DealerDashboard_ManufacturingDateLabel"
+                                    text="Manufacturing Date"
+                                    wrapping="true"
+                                />
+                            </Column>
+                               <Column
+                                id="DealerDashboard_ExpiryDateColumn"
+                                width="70px"
+                                hAlign="Center"
+                            >
+                                <Label
+                                    id="DealerDashboard_ExpiryDateLabel"
+                                    text="Expiry Date"
+                                />
+                            </Column>
+                            <Column
+                                id="DealerDashboard_ProductionIDColumn"
+                                width="70px"
+                                hAlign="Center"
+                            >
+                                <Label
+                                    id="DealerDashboard_ProductionIDLabel"
+                                    text="Production Order"
+                                    wrapping="true"
+                                />
+                            </Column>
+                            <Column
+                                id="DealerDashboard_BoxQRCodeColumn"
+                                width="70px"
+                                hAlign="Center"
+                                mergeDuplicates="true"
+                            >
+                                <Label
+                                    id="DealerDashboard_BoxQRCodeLabel"
+                                    text="Box QR Code"
+                                />
+                            </Column>
+                            <Column
+                                id="DealerDashboard_ICQRCodeColumn"
+                                width="70px"
+                                hAlign="Center"
+                                mergeDuplicates="true"
+                            >
+                                <Label
+                                    id="DealerDashboard_ICQRCodeLabel"
+                                    text="IC QR Code"
+                                />
+                            </Column>
+                        </columns>
+
+                        <ColumnListItem
+                            id="DealerDashboard_MaterialColumnListItem"
+                             class="borderedRow"
+                        >
+                            <cells>
+                                <Text
+                                    id="DealerDashboard_ICIDText"
+                                    text="{newArrayModel>ICID}"
+                                />
+                                <Text
+                                    id="DealerDashboard_SerialNoText"
+                                    text="{newArrayModel>BoxSerialNo}"
+                                />
+                                <Text
+                                    id="DealerDashboard_ProductCodeText"
+                                    text="{newArrayModel>Material}"
+                                />
+                                
+                                <Text
+                                    id="DealerDashboard_ManufacturingDateText"
+                                    text="{newArrayModel>mfgDate}"
+                                />
+                                <Text
+                                    id="DealerDashboard_ExpiryDateText"
+                                    text="{newArrayModel>expDate}"
+                                />
+                                <Text
+                                    id="DealerDashboard_ProductionIDText"
+                                    text="{newArrayModel>pOrder}"
+                                />
+                                <Text
+                                    id="DealerDashboard_boxqrcode"
+                                    text="{newArrayModel>BoxQRCode}"
+                                />
+                                <Text
+                                    id="DealerDashboard_icqrcode"
+                                    text="{newArrayModel>ICQRCode}"
+                                />
+                                <!-- <Button
+                                    id="DealerDashboard_BoxQRCodeButton"
+                                    text="Box QR"
+                                    press="onBoxQRCodePress"
+                                    enabled="true"
+                                    visible="false"
+                                />
+                                <Button
+                                    id="DealerDashboard_ICQRCodeButton"
+                                    text="IC QR"
+                                    press="onICQRCodePress"
+                                    enabled="true"
+                                    visible="false"
+                                /> -->
+                            </cells>
+                        </ColumnListItem>
+                    </Table>
+                </Panel>
+            </l:SplitPane>
+        </l:PaneContainer>
+    </l:ResponsiveSplitter>
+</mvc:View>

@@ -1,0 +1,74 @@
+{
+  "name": "dealerapp",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap-cloud-sdk/http-client": "^3.25.0",
+    "@sap-cloud-sdk/resilience": "^3.25.0",
+    "@sap/cds": "^8",
+    "express": "^4",
+    "@cap-js/hana": "^1"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.8.0",
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-dealer": "cds watch --open dealer/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "requires": {
+      "ZTRACK_TRACE_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZTRACK_TRACE_SRV",
+        "[production]": {
+          "credentials": {
+            "destination": "Ingenx_OData_SAP",
+            "path": "/sap/opu/odata/sap/ZTRACK_TRACE_SRV"
+          }
+        },
+        "[development]": {
+          "credentials": {
+            "destination": "SandboxPO",
+            "path": "/sap/opu/odata/sap/ZTRACK_TRACE_SRV"
+          }
+        },
+        "csrf": true,
+        "csrfInBatch": true
+      },
+      "QrGeneratorApp_edmx": {
+        "kind": "odata",
+        "model": "srv/external/QrGeneratorApp.edmx",
+        "credentials": {
+          "destination": "QRGeneratorApp"
+        }
+      },
+      "ZTRACKTRACE_VALUEHELP_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZTRACKTRACE_VALUEHELP_SRV",
+        "[production]": {
+          "credentials": {
+            "destination": "Ingenx_OData_SAP",
+            "path": "/sap/opu/odata/sap/ZTRACKTRACE_VALUEHELP_SRV"
+          }
+        },
+        "[development]": {
+          "credentials": {
+            "destination": "SandboxPO",
+            "path": "/sap/opu/odata/sap/ZTRACKTRACE_VALUEHELP_SRV"
+          }
+        },
+        "csrf": true,
+        "csrfInBatch": true
+      }
+    },
+    "sql": {
+      "native_hana_associations": false
+    }
+  }
+}

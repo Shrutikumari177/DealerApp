@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://ingenxsrv:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://ingenxsrv:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://ingenxsrv:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://ingenxsrv:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://ingenxsrv:8001/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='')/$value"
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZTRACK_TRACE_SRV" xml:lang="en" sap:schema-version="1"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="zbatchdetails_TrackType" sap:label="track batch details" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BatchNo"/>
+                    <PropertyRef Name="SerialNo"/>
+                </Key>
+                <Property Name="BatchNo" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Batch" sap:quickinfo="Batch Number"/>
+                <Property Name="SerialNo" Type="Edm.String" Nullable="false" MaxLength="18" sap:display-format="UpperCase" sap:label="Serial Number"/>
+                <Property Name="Material" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Material Number"/>
+                <Property Name="aufnr" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Order" sap:quickinfo="Order Number"/>
+                <Property Name="ManufactureDt" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Date of Manufacture"/>
+                <Property Name="ExpiryDt" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="SLED/BBD" sap:quickinfo="Shelf Life Expiration or Best-Before Date"/>
+                <Property Name="ProductionOrder" Type="Edm.String" MaxLength="12" sap:display-format="UpperCase" sap:label="Order" sap:quickinfo="Order Number"/>
+                <Property Name="OrderList" Type="Edm.Int64" sap:label="Object list" sap:quickinfo="Object list number"/>
+            </EntityType>
+            <EntityType Name="zbatchmaterial_TrackType" sap:label="Batch For Material in TrackTrace" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductionOrder"/>
+                    <PropertyRef Name="Material"/>
+                </Key>
+                <Property Name="ProductionOrder" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="Order" sap:quickinfo="Order Number"/>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Material Number"/>
+                <Property Name="Plant" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Plant"/>
+                <Property Name="StorageLoc" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Storage location"/>
+                <Property Name="uom" Type="Edm.String" MaxLength="3" sap:label="Base Unit of Measure" sap:semantics="unit-of-measure"/>
+                <Property Name="Reqnt" Type="Edm.Decimal" Precision="13" Scale="3" sap:unit="uom" sap:label="Requirement Quantity"/>
+                <Property Name="ItemResv" Type="Edm.String" MaxLength="4" sap:display-format="NonNegative" sap:label="Item no." sap:quickinfo="Item Number of Reservation / Dependent Requirements"/>
+                <Property Name="Batch" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="zbatchno_trackType" sap:label="batchno track" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BatchNo"/>
+                </Key>
+                <Property Name="BatchNo" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Batch" sap:quickinfo="Batch Number"/>
+            </EntityType>
+            <EntityType Name="zorderType_TrackType" sap:label="track ordertype" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Plant"/>
+                </Key>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Plant"/>
+                <Property Name="OrderType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Order Type"/>
+            </EntityType>
+            <EntityType Name="zplant_trackvalueType" sap:label="plant value help" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Plant"/>
+                </Key>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Plant"/>
+            </EntityType>
+            <EntityType Name="ZProductionOrder_trackType" sap:label="production order in Track and Trace" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ProductionOrder"/>
+                </Key>
+                <Property Name="ProductionOrder" Type="Edm.String" Nullable="false" MaxLength="12" sap:display-format="UpperCase" sap:label="Order" sap:quickinfo="Order Number"/>
+            </EntityType>
+            <EntityType Name="ztrack_materialType" sap:label="material for track" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Material"/>
+                </Key>
+                <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Material Number"/>
+                <Property Name="MaterialType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Material type"/>
+                <Property Name="MaterialDesc" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:label="Material description" sap:quickinfo="Material Description in Uppercase for Matchcodes"/>
+            </EntityType>
+            <EntityContainer Name="ZTRACK_TRACE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="zbatchdetails_Track" EntityType="ZTRACK_TRACE_SRV.zbatchdetails_TrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zbatchmaterial_Track" EntityType="ZTRACK_TRACE_SRV.zbatchmaterial_TrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zbatchno_track" EntityType="ZTRACK_TRACE_SRV.zbatchno_trackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zorderType_Track" EntityType="ZTRACK_TRACE_SRV.zorderType_TrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zplant_trackvalue" EntityType="ZTRACK_TRACE_SRV.zplant_trackvalueType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ZProductionOrder_track" EntityType="ZTRACK_TRACE_SRV.ZProductionOrder_trackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ztrack_material" EntityType="ZTRACK_TRACE_SRV.ztrack_materialType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <Annotations Target="ZTRACK_TRACE_SRV.ZTRACK_TRACE_SRV_Entities"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Aggregation.ApplySupported">
+                    <Record>
+                        <PropertyValue Property="Transformations">
+                            <Collection>
+                                <String>aggregate</String>
+                                <String>groupby</String>
+                                <String>filter</String>
+                            </Collection>
+                        </PropertyValue>
+                        <PropertyValue Property="Rollup" EnumMember="None"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <atom:link rel="self" href="http://ingenxsrv:8001/sap/opu/odata/sap/ZTRACK_TRACE_SRV/$metadata"
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+                <atom:link rel="latest-version" href="http://ingenxsrv:8001/sap/opu/odata/sap/ZTRACK_TRACE_SRV/$metadata"
+                    xmlns:atom="http://www.w3.org/2005/Atom"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
