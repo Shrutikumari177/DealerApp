@@ -224,7 +224,7 @@ sap.ui.define([
         onBOXValueConfirmItemtrigger: async function () {
             let boxId = this.getView().byId("mapping_BOXValueHelpInput").getValue();
             try {
-                let oData =await HelperFunction._getSingleEntityDataWithParam(this,"getDealerOcIcBoxMappingdata","Box",boxId)
+                let oData =await HelperFunction._getSingleEntityDataWithParam(this,"getDealerOcIcBoxMappingdata","SerialNo",boxId)
                 console.log("oData", oData);
                 let filteredDataModel = this.getOwnerComponent().getModel("filteredDataModel");
                 if (!filteredDataModel) {
@@ -245,7 +245,6 @@ sap.ui.define([
                 }
             } catch (oError) {
                 console.error("Error fetching filtered data:", oError);
-                MessageBox.error("Failed to fetch filtered data. Please try again.");
             }
         },
 
@@ -309,29 +308,40 @@ sap.ui.define([
 
         onSubmitMappingData: function () {
             try {
-                let inputValues = HelperFunction._getInputValues(this,["mapping_ocValueHelpInput","mapping_IcValueHelpInput","mapping_retailerValueHelpInput","retailerTaxField"])
-                let [OCID,ICID,RetailerId,TaxNo] = inputValues
-                if (!OCID && !ICID) {
+                debugger
+                let inputValues = HelperFunction._getInputValues(this,["mapping_ocValueHelpInput","mapping_IcValueHelpInput","mapping_BOXValueHelpInput","mapping_retailerValueHelpInput","retailerTaxField"])
+                let [OCID,ICID,Box,RetailerId,TaxNo] = inputValues
+                if (!OCID && !ICID && !Box) {
                     throw new Error("Neither OCID nor ICID is provided.");
                 }
                 if (ICID) {
-                    let payloadforIC = {
+                    let payloadforInvMapping = {
                         IC_ICID: ICID,
                         RetailerId: RetailerId,
                         TaxNo: TaxNo
                     };
-                    console.log("Payload for IC:", payloadforIC);
-                    this._sendToBackendIC(payloadforIC);
+                    console.log("Payload for IC:", payloadforInvMapping);
+                    this._sendToBackendOC(payloadforInvMapping);
                 }
                 if (OCID) {
-                    let payloadforOC = {
+                    let payloadforInvMapping = {
                         OC_OCID: OCID,
                         RetailerId: RetailerId,
                         TaxNo: TaxNo
                     };
-                    console.log("Payload for OC:", payloadforOC);
-                    this._sendToBackendOC(payloadforOC);
+                    console.log("Payload for OC:", payloadforInvMapping);
+                    this._sendToBackendOC(payloadforInvMapping);
                 }
+                if (Box) {
+                    let payloadforInvMapping = {
+                        SerialNo: Box,
+                        RetailerId: RetailerId,
+                        TaxNo: TaxNo
+                    };
+                    console.log("Payload for OC:", payloadforInvMapping);
+                    this._sendToBackendOC(payloadforInvMapping);
+                }
+                
         
             } catch (error) {
                 console.error("Error in onSubmitMappingData:", error.message);
@@ -339,45 +349,53 @@ sap.ui.define([
             }
         },
 
-        _sendToBackendIC: async function (payloadforIC) {
+      
+        _sendToBackendOC: async function (payloadforInvMapping) {
             try {
-                console.log("payloadforIC being sent to the backend:", payloadforIC);
-                var oModel = this.getOwnerComponent().getModel();        
-                if (!oModel) {
-                    throw new Error("OData model not found.");
-                }
-                let sPath = "/MapRetailer";
-                const oBindList = oModel.bindList(sPath);
-                const context = oBindList.create(payloadforIC);
-                await context.created();
-                console.log("Data posted successfully:", context.getObject());
-                sap.m.MessageBox.success("IC Data saved successfully.");
-            } catch (error) {
-                console.error("Error in _sendToBackendIC:", error.message);
-                sap.m.MessageBox.error("Error saving IC data: " + error.message);
-            }
-        },
+                console.log("Sending payload to backend:", payloadforInvMapping);
         
-        _sendToBackendOC: async function (payloadforOC) {
-            try {
-                console.log("payloadforOC being sent to the backend:", payloadforOC);
                 var oModel = this.getOwnerComponent().getModel();
-                
                 if (!oModel) {
-                    throw new Error("OData model not found.");
+                    throw new Error("OData V4 model not found.");
                 }
         
-                let sPath = "/MapRetailer";
-                const oBindList = oModel.bindList(sPath);
-                const context = oBindList.create(payloadforOC);
-                await context.created();
+                let sAction = "/MapRetailer(...)";
         
-                console.log("Data posted successfully:", context.getObject());
-                sap.m.MessageBox.success("OC Data saved successfully.");
+                const oContext = oModel.bindContext(sAction, undefined);
+        
+                if (payloadforInvMapping.OC_OCID) {
+                    oContext.setParameter("OC_OCID", payloadforInvMapping.OC_OCID);
+                }
+                if (payloadforInvMapping.IC_ICID) {
+                    oContext.setParameter("IC_ICID", payloadforInvMapping.IC_ICID);
+                }
+                if (payloadforInvMapping.SerialNo) {
+                    oContext.setParameter("SerialNo", payloadforInvMapping.SerialNo);
+                }
+                if (payloadforInvMapping.RetailerId) {
+                    oContext.setParameter("RetailerId", payloadforInvMapping.RetailerId);
+                }
+                if (payloadforInvMapping.TaxNo) {
+                    oContext.setParameter("TaxNo", payloadforInvMapping.TaxNo);
+                }
+        
+                await oContext.execute();
+        
+                console.log("Mapping Done successfully:");
+                sap.m.MessageToast.show("Action executed successfully!");
+        
             } catch (error) {
-                console.error("Error in _sendToBackendOC:", error.message);
-                sap.m.MessageBox.error("Error saving OC data: " + error.message);
+                console.error("Error executing action:", error);
+                sap.m.MessageBox.error( error.message);
             }
         }
+        
+        
+        
+      
+        
+        
+        
+        
     });
 });

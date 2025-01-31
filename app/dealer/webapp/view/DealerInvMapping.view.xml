@@ -511,7 +511,7 @@
                                 <HBox id="mapping_ICCodeInputBox">
                                     <Input
                                         id="mapping_icCodeInput"
-                                        value="{filteredDataModel>/ICID}"
+                                        value="{filteredDataModel>/SerialNo}"
                                         width="200px"
                                         editable="false"
                                     />
