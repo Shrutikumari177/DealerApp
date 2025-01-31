@@ -382,7 +382,7 @@ sap.ui.define([
                 await oContext.execute();
         
                 console.log("Mapping Done successfully:");
-                sap.m.MessageToast.show("Action executed successfully!");
+                sap.m.MessageToast.show("Mapping Done successfully");
         
             } catch (error) {
                 console.error("Error executing action:", error);
