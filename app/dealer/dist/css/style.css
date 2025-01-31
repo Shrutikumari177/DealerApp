@@ -1,0 +1,115 @@
+/* table css start */
+.dashboardTable th{
+    border: 1px solid #ddd;
+    background-color: #e9f6f7;
+}
+.borderedTable{
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+.dashboardTable td{
+    border: 1px solid #ddd;
+}
+.sapMTableTH {  
+    border-top: 1px solid #e5e5e5;
+}
+.borderedTable .borderedRow .sapMListTblCell,.OCborderedTable .borderedRow .sapMListTblCell {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 3px;
+}
+.borderedTable .sapUiSizeCompact .sapMListTblNavCol, .sapUiSizeCompact .sapMListTblSelCol,.OCborderedTable .sapUiSizeCompact .sapMListTblNavCol, .sapUiSizeCompact .sapMListTblSelCol{
+    border-left: 1px solid #ddd;
+}
+.borderedTable .sapMListTblHeaderCell,.OCborderedTable .sapMListTblHeaderCell {
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.tableBorder {
+    border-collapse: separate; 
+    border-spacing: 0; 
+    border-radius: 8px; 
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+/* table css end */
+
+.submitBtnBox{
+    display: flex;
+    justify-content: end;
+}
+.qrImage{
+    margin: 88px;
+}
+
+.generateQr_area{
+    display: flex;
+    justify-content: end;
+}
+.header_nav{
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+ 
+.invMappingLayout .sapUiFormM:not(.sapUiFormEdit) .sapUiFormResGridCont {
+    margin-top: -2.25rem;
+    padding-bottom: 1.75rem;
+}
+
+.fbox{
+    display: flex;
+    justify-content: space-between;
+    /* background-color: red; */
+  }
+
+  .dash_hbox {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    /* background-color: green; */
+
+  }
+
+  .ibox{
+    display: flex;
+    justify-content: right;
+    float: right;
+    align-items: start;
+    /* background-color: yellow; */
+  }
+
+.shape_text{
+    font-weight: bold;
+    font-size: 1em;
+}
+ 
+.scanner_btn{
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: min-content;
+    border-radius: 3px;
+    margin-left: -1px !important;
+    margin: 0px 10px;
+}
+.onQrScannerClass,.salerOrderList{
+    cursor: pointer !important;
+}
+
+
+.page_title{
+    font-weight: bold;
+}
+
+.dealerDetail_form{
+    border: 2px solid red;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10%;
+    width : 100%;
+    border: 1px solid #ddd;
+}

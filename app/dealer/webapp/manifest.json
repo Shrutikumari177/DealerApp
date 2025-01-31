@@ -24,6 +24,19 @@
           "odataVersion": "4.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "DealerApp-manage": {
+          "semanticObject": "DealerApp",
+          "action": "manage",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
   },
   "sap.ui": {
@@ -154,5 +167,9 @@
       "type": "XML",
       "id": "App"
     }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "DealerAppSRV"
   }
 }

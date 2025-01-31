@@ -1,0 +1,656 @@
+<mvc:View
+    controllerName="com.ingenx.dealer.controller.DealerInvMapping"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+>
+    <ScrollContainer
+        id="invMapping_ScrollContainer"
+        vertical="true"
+        height="100%"
+    >
+        <tnt:ToolHeader
+            id="invMappingshellOnlyMandatoryControls"
+            class="sapUiTinyMargin header_nav"
+        >
+            <Title
+                id="invMapping_Title"
+                textAlign="Center"
+                text="Retailer OC &amp; IC &amp; BOX Mapping "
+                wrapping="false"
+                class="page_title"
+            >
+                <layoutData>
+                    <OverflowToolbarLayoutData
+                        id="invMapping_OverflowToolbarLayoutData"
+                        priority="Disappear"
+                    />
+                </layoutData>
+            </Title>
+            <ToolbarSpacer id="invMapping_ToolbarSpacer" />
+        </tnt:ToolHeader>
+
+        <l:VerticalLayout
+            id="invMapping_VerticalLayout"
+            width="100%"
+        >
+            <l:BlockLayout
+                id="invMapping_BlockLayout"
+                background="Dashboard"
+            >
+                <l:BlockLayoutRow id="invMapping_BlockLayoutRow3">
+                    <l:BlockLayoutCell
+                        id="invMapping_GenBlockLayoutCell3"
+                        width="90%"
+                    >
+                        <Label
+                            id="invMapping_Label1"
+                            text="Container Type"
+                            class="sapUiTinyMargin"
+                            design="Bold"
+                        />
+                        <Select
+                            id="mapping_salesOrderValueHelpInput"
+                            width="15%"
+                            forceSelection="false"
+                            change="onSelectChange"
+                        >
+                            <items>
+                                <core:Item
+                                    id="invMapping_Item1"
+                                    key="OC"
+                                    text="Outer Compartment"
+                                />
+                                <core:Item
+                                    id="invMapping_Item2"
+                                    key="IC"
+                                    text="Inner Compartment"
+                                />
+                                <core:Item
+                                    id="invMapping_Item3"
+                                    key="BOX"
+                                    text="Box Unit"
+                                />
+                            </items>
+                        </Select>
+
+                        <Label
+                            id="invMapping_LabelOC"
+                            text="OC ID"
+                            class="sapUiTinyMargin sapUiSmallMarginBegin"
+                            design="Bold"
+                            visible="false"
+                        />
+                        <Input
+                            id="mapping_ocValueHelpInput"
+                            width="15%"
+                            showValueHelp="true"
+                            class="sapUiSmallMarginBegin"
+                            valueHelpRequest="onOCValueHelp"
+                            visible="false"
+                        />
+                        <Label
+                            id="invMapping_LabelIC"
+                            text="IC ID"
+                            class="sapUiTinyMargin sapUiSmallMarginBegin"
+                            design="Bold"
+                            visible="false"
+                        />
+                        <Input
+                            id="mapping_IcValueHelpInput"
+                            width="15%"
+                            showValueHelp="true"
+                            class="sapUiSmallMarginBegin"
+                            valueHelpRequest="onICValueHelp"
+                            visible="false"
+                        />
+                        <Label
+                            id="invMapping_LabelBOX"
+                            text="BOX"
+                            class="sapUiTinyMargin sapUiSmallMarginBegin"
+                            design="Bold"
+                            visible="false"
+                        />
+                        <Input
+                            id="mapping_BOXValueHelpInput"
+                            width="15%"
+                            showValueHelp="true"
+                            class="sapUiSmallMarginBegin"
+                            valueHelpRequest="onBoxValueHelp"
+                            visible="false"
+                        />
+                        <Button
+                            id="invMapping_ButtonGo"
+                            text="GO"
+                            class="sapUiSmallMarginBegin"
+                            type="Emphasized"
+                            press="_onMappingGoButtonPress"
+                        />
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+
+            <!--Layout for OC item  -->
+                <l:BlockLayoutRow id="invMapping_BlockLayoutRow">
+                    <l:BlockLayoutCell
+                        id="invMapping_BlockLayoutCellOC"
+                        width="90%"
+                        visible="false"
+                    >
+                        <form:SimpleForm
+                            id="invMapping_SimpleFormOC"
+                            class="tableBorder invMappingLayout"
+                            editable="false"
+                        >
+                            <form:toolbar>
+                                <Toolbar id="invMapping_toolbat1">
+                                    <Title
+                                        id="invMapping_Title1"
+                                        text="Product Details"
+                                    />
+                                    <ToolbarSpacer id="invMapping_ToolbarSpacerSubmit" />
+                                    <Button
+                                        id="invMapping_ButtonOC"
+                                        text="Submit"
+                                        type="Emphasized"
+                                        visible="true"
+                                        press="onSubmitMappingData"
+                                    />
+                                </Toolbar>
+                            </form:toolbar>
+                            <form:content>
+                                <core:Title id="invMapping_TitleOC" />
+                                <Label
+                                    id="invMapping_LabelOC1"
+                                    text="OC ID"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox id="mapping_ocCodeInputBox">
+                                    <Input
+                                        id="mapping_ocCodeInput"
+                                        value="{filteredDataModel>/OCID}"
+                                        width="200px"
+                                        editable="false"
+                                        visible="true"
+                                    />
+                                </HBox>
+
+                                <Label
+                                    id="invMapping_LabelProductionOrder"
+                                    text="Production Order"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox id="mapping_oderNoInputBox">
+                                    <Input
+                                        id="mapping_oderNoInput"
+                                        value="{filteredDataModel>/ProductionOrder}"
+                                        width="200px"
+                                        editable="false"
+                                    />
+                                </HBox>
+                                <Label
+                                    id="invMapping_LabelBatchID"
+                                    text="Batch ID"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox id="mapping_batchIdInputHBox">
+                                    <Input
+                                        id="mapping_batchIdInput"
+                                        value="{filteredDataModel>/BatchID}"
+                                        width="200px"
+                                        editable="false"
+                                        visible="true"
+                                    />
+                                </HBox>
+                                <Label
+                                    id="invMapping_Label"
+                                    text="IC Quantity"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox id="mapping_qtyInputHBox">
+                                    <Input
+                                        id="mapping_qtyInput"
+                                        width="200px"
+                                        value="{filteredDataModel>/Qunatity}"
+                                        editable="false"
+                                    />
+                                </HBox>
+
+                                <core:Title id="invMapping_coretitle" />
+                                
+                                <Label
+                                    id="invMapping_RetailerId"
+                                    text="Retailer ID"
+                                    design="Bold"
+                                    required="true"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox
+                                    id="invMapping_Hbox"
+                                >
+                                    <Input
+                                        id="mapping_retailerValueHelpInput"
+                                        width="178px"
+                                        showValueHelp="true"
+                                        valueHelpRequest="_onOpenReatilerValueHelp"
+                                        required="true"
+                                        value="{filteredDataModel>/RetailerID}"
+                                        editable="true"
+                                    />
+                                </HBox>
+                                <Input
+                                    id="mapping_retailerNameInput"
+                                    width="180px"
+                                    value="{filteredDataModel>/RetailerName}"
+                                    editable="false"
+                                />
+                                <Label
+                                    id="invMapping_TaxNumber"
+                                    text="Tax Number"
+                                    design="Bold"
+                                    visible="{displayOrNotModel>/vendorIdEdit}"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <Input
+                                    id="retailerTaxField"
+                                    width="180px"
+                                    visible="{}"
+                                    value="{filteredDataModel>/RetailerTaxNo}"
+                                    editable="false"
+                                />
+
+                                <Label
+                                    id="invMapping_manufacturingDate"
+                                    text="Manufacturing Date"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <Input
+                                    id="mapping_startDateInput"
+                                    width="180px"
+                                    value="{filteredDataModel>/ManufactureDt}"
+                                    editable="false"
+                                />
+                                <Label
+                                    id="invMapping_expiryDate"
+                                    text="Expiry Date"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <Input
+                                    id="mapping_endDateInput"
+                                    width="180px"
+                                    value="{filteredDataModel>/ExpiryDt}"
+                                    editable="false"
+                                />
+                            </form:content>
+                        </form:SimpleForm>
+                        </l:BlockLayoutCell>
+
+                        <!-- layout for IC item -->
+                        <l:BlockLayoutCell
+                        id="invMapping_BlockLayoutCellIC"
+                        width="90%"
+                        visible="false"
+                    >
+                        <form:SimpleForm
+                            id="invMapping_SimpleForm1"
+                            class="tableBorder invMappingLayout"
+                            editable="false"
+                        >
+                            <form:toolbar>
+                                <Toolbar id="invMapping_toolbar2">
+                                    <Title
+                                        id="invMapping_Title2"
+                                        text="Product Details"
+                                    />
+                                    <ToolbarSpacer id="invMapping_GenToolbarSpacer" />
+                                    <Button
+                                        id="invMapping_ButtonIC"
+                                        text="Submit"
+                                        type="Emphasized"
+                                        visible="true"
+                                        press="onSubmitMappingData"
+                                    />
+                                </Toolbar>
+                            </form:toolbar>
+                            <form:content>
+                                <core:Title id="invMapping_coreTitle2" />
+
+                                <Label
+                                    id="invMapping_IcID"
+                                    text="IC ID"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox id="invMapping_ICCodeInputBox">
+                                    <Input
+                                        id="invMapping_icCodeInput"
+                                        value="{filteredDataModel>/ICID}"
+                                        width="200px"
+                                        editable="false"
+                                    />
+                                </HBox>
+
+                                <Label
+                                    id="invMapping_ICidLabel"
+                                    text="IC ID"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                    visible="false"
+                                />
+                                <HBox id="invMapping_ICCodeInputBox1">
+                                    <Input
+                                        id="invMapping_icCodeInput1"
+                                        value="{filteredDataModel>/ICID}"
+                                        width="200px"
+                                        editable="false"
+                                        visible="false"
+                                    />
+                                </HBox>
+                                <Label
+                                    id="invMapping_ProductionOrder"
+                                    text="Production Order"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox id="invMapping_oderNoInputBox">
+                                    <Input
+                                        id="invMapping_oderNoInput"
+                                        value="{filteredDataModel>/ProductionOrder}"
+                                        width="200px"
+                                        editable="false"
+                                    />
+                                </HBox>
+                                <Label
+                                    id="invMapping_BatchID"
+                                    text="Batch ID"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox id="invMapping_batchIdInputHBox">
+                                    <Input
+                                        id="invMapping_batchIdInput"
+                                        value="{filteredDataModel>/BatchID}"
+                                        width="200px"
+                                        editable="false"
+                                        visible="true"
+                                    />
+                                </HBox>
+
+                                <Label
+                                    id="invMapping_BoxQuantotylabel"
+                                    text="Box Quantity"
+                                    design="Bold"
+                                />
+                                <HBox id="invMapping_qtyInputHBox1">
+                                    <Input
+                                        id="invMapping_qtyInput1"
+                                        width="200px"
+                                        value="{filteredDataModel>/Qunatity}"
+                                        editable="false"
+                                    />
+                                </HBox>
+
+                                <core:Title id="invMapping_coreTitle" />
+                                
+                                <Label
+                                    id="invMapping_RetailerID"
+                                    text="Retailer ID"
+                                    design="Bold"
+                                    required="true"
+                                    class="sapUiTinyMarginTop"
+                                    visible="{displayOrNotModel>/vendorIdEdit}"
+                                />
+                                <HBox
+                                    id="invMapping_HBox5"
+                                    visible="{displayOrNotModel>/vendorIdEdit}"
+                                >
+                                    <Input
+                                        id="invMapping_retailerValueHelpInput"
+                                        width="178px"
+                                        showValueHelp="true"
+                                        valueHelpRequest="_onOpenReatilerValueHelp"
+                                        required="true"
+                                        value="{filteredDataModel>/RetailerID}"
+                                        editable="true"
+                                    />
+                                </HBox>
+                                <Input
+                                    id="invMapping_retailerNameInput"
+                                    width="180px"
+                                    value="{filteredDataModel>/RetailerName}"
+                                    editable="false"
+                                />
+                                <Label
+                                    id="invMapping_taxNumberLabel"
+                                    text="Tax Number"
+                                    design="Bold"
+                                    visible="{displayOrNotModel>/vendorIdEdit}"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <Input
+                                    id="invMapping_retailerTaxField"
+                                    width="180px"
+                                    visible="{}"
+                                    value="{filteredDataModel>/RetailerTaxNo}"
+                                    editable="false"
+                                />
+
+                                <Label
+                                    id="invMapping_manufacturingLabel"
+                                    text="Manufacturing Date"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <Input
+                                    id="invMapping_startDateInput"
+                                    width="180px"
+                                    value="{filteredDataModel>/ManufactureDt}"
+                                    editable="false"
+                                />
+                                <Label
+                                    id="invMapping_expiryDateLabel"
+                                    text="Expiry Date"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <Input
+                                    id="invMapping_endDateInput"
+                                    width="180px"
+                                    value="{filteredDataModel>/ExpiryDt}"
+                                    editable="false"
+                                />
+                            </form:content>
+                        </form:SimpleForm>
+                        </l:BlockLayoutCell>
+
+                        <!-- layout for box item -->
+                        <l:BlockLayoutCell
+                        id="invMapping_BlockLayoutCellBOX"
+                        width="90%"
+                        visible="false"
+                    >
+                        <form:SimpleForm
+                            id="3_IDGenSimpleForm1"
+                            class="tableBorder invMappingLayout"
+                            editable="false"
+                        >
+                            <form:toolbar>
+                                <Toolbar id="3TB1">
+                                    <Title
+                                        id="3Title1"
+                                        text="Product Details"
+                                    />
+                                    <ToolbarSpacer id="3_IDGenToolbarSpacer4" />
+                                    <Button
+                                        id="invMapping_ButtonBOX"
+                                        text="Submit"
+                                        type="Emphasized"
+                                        visible="true"
+                                        press="onSubmitMappingData"
+                                    />
+                                </Toolbar>
+                            </form:toolbar>
+                            <form:content>
+                                <core:Title id="3_IDGenTitle1" />
+
+                                <Label
+                                    id="_IDLabel21"
+                                    text="BOX ID"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox id="mapping_ICCodeInputBox">
+                                    <Input
+                                        id="mapping_icCodeInput"
+                                        value="{filteredDataModel>/SerialNo}"
+                                        width="200px"
+                                        editable="false"
+                                    />
+                                </HBox>
+
+                                <Label
+                                    id="3_IDLabel21"
+                                    text="IC ID"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                    visible="false"
+                                />
+                                <HBox id="3mapping_ICCodeInputBox">
+                                    <Input
+                                        id="3mapping_icCodeInput"
+                                        value="{filteredDataModel>/ICID}"
+                                        width="200px"
+                                        editable="false"
+                                        visible="false"
+                                    />
+                                </HBox>
+                                <Label
+                                    id="3_IDLabel4"
+                                    text="Production Order"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox id="3mapping_oderNoInputBox">
+                                    <Input
+                                        id="3mapping_oderNoInput"
+                                        value="{filteredDataModel>/ProductionOrder}"
+                                        width="200px"
+                                        editable="false"
+                                    />
+                                </HBox>
+                                <Label
+                                    id="3_IDLabel6"
+                                    text="Batch ID"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <HBox id="3mapping_batchIdInputHBox">
+                                    <Input
+                                        id="3mapping_batchIdInput"
+                                        value="{filteredDataModel>/BatchID}"
+                                        width="200px"
+                                        editable="false"
+                                        visible="true"
+                                    />
+                                </HBox>
+                                <!--                             
+                                <Label
+                                    id="3_IDLabel15"
+                                    text="Box Quantity"
+                                    design="Bold"
+                                />
+                                <HBox id="3mapping_qtyInputHBox1">
+                                    <Input
+                                        id="3mapping_qtyInput1"
+                                        width="200px"
+                                        value="{filteredDataModel>/Quantity}"
+                                        editable="false"
+                                    />
+                                </HBox> -->
+
+                                <core:Title id="3_IenTitle2" />
+                                <!--edit  valuehelp -->
+                                <Label
+                                    id="3_IDnLabel3"
+                                    text="Retailer ID"
+                                    design="Bold"
+                                    required="true"
+                                    class="sapUiTinyMarginTop"
+                                    visible="{displayOrNotModel>/vendorIdEdit}"
+                                />
+                                <HBox
+                                    id="3_IDGenHBox5"
+                                    visible="{displayOrNotModel>/vendorIdEdit}"
+                                >
+                                    <Input
+                                        id="3mapping_retailerValueHelpInput"
+                                        width="178px"
+                                        showValueHelp="true"
+                                        valueHelpRequest="_onOpenReatilerValueHelp"
+                                        required="true"
+                                        value="{filteredDataModel>/RetailerID}"
+                                        editable="true"
+                                    />
+                                </HBox>
+                                <Input
+                                    id="3mapping_retailerNameInput"
+                                    width="180px"
+                                    value="{filteredDataModel>/RetailerName}"
+                                    editable="false"
+                                />
+                                <Label
+                                    id="3_IDGenLab8"
+                                    text="Tax Number"
+                                    design="Bold"
+                                    visible="{displayOrNotModel>/vendorIdEdit}"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <Input
+                                    id="3retailerTaxField"
+                                    width="180px"
+                                    visible="{}"
+                                    value="{filteredDataModel>/RetailerTaxNo}"
+                                    editable="false"
+                                />
+
+                                <Label
+                                    id="3_IDGenLabel7"
+                                    text="Manufacturing Date"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <Input
+                                    id="3mapping_startDateInput"
+                                    width="180px"
+                                    value="{filteredDataModel>/ManufactureDt}"
+                                    editable="false"
+                                />
+                                <Label
+                                    id="3_IDGenLabel8"
+                                    text="Expiry Date"
+                                    design="Bold"
+                                    class="sapUiTinyMarginTop"
+                                />
+                                <Input
+                                    id="3mapping_endDateInput"
+                                    width="180px"
+                                    value="{filteredDataModel>/ExpiryDt}"
+                                    editable="false"
+                                />
+                            </form:content>
+                        </form:SimpleForm>
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+            </l:BlockLayout>
+        </l:VerticalLayout>
+    </ScrollContainer>
+</mvc:View>

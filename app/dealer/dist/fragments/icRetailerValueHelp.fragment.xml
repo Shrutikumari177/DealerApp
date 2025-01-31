@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="icRetailerValueHelp"
+        noDataText="Loading..."
+        title="Select Inner Container"
+        search="onICValueHelpSearch"
+        liveChange="onICValueHelpSearch"
+        confirm="onICValueConfirmItem"
+        items="{allSelectedItemModel>/}"
+        initialFocus="SearchField">
+        <StandardListItem 
+            id="icRetailerValueHelp_StandardListItem"
+            title="{allSelectedItemModel>ICID}"
+            description=""
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

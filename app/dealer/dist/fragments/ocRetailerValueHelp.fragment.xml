@@ -1,0 +1,21 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="ocRetailerValueHelp"
+        noDataText="Loading..."
+        title="Select Outer Container"
+        search="onOCValueHelpSearch"
+        liveChange="onOCValueHelpSearch"
+        confirm="onOCOCValueConfirmItem"
+        items="{allSelectedItemModel>/}"
+        initialFocus="SearchField">
+        <StandardListItem 
+            id="ocRetailerValueHelp_StandardListItem"
+            title="{allSelectedItemModel>OCID}"
+            description=""
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

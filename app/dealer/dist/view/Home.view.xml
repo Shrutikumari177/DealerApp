@@ -1,0 +1,63 @@
+<mvc:View
+    controllerName="com.ingenx.dealer.controller.Home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="Dealer "
+    >
+        <GenericTile
+            id="home_genericTileDashboardDealer"
+            class="sapUiSmallMarginBegin sapUiSmallMarginTop tileLayout"
+            header="Inventory Dashboard For Dealer"
+            press="onPressDealerDashboard"
+        >
+            <TileContent id="home_tileContent">
+                <ImageContent
+                    id="home_ImageContent"
+                    src="sap-icon://bbyd-dashboard"
+                />
+            </TileContent>
+        </GenericTile>
+        <GenericTile
+            id="home_genericTileRetailerRegistration"
+            class="sapUiSmallMarginBegin sapUiSmallMarginTop tileLayout"
+            header="Retailer Registration"
+            press="onPressRetaileRegistration"
+        >
+            <TileContent id="home_tileContentRetailerRegistration">
+                <ImageContent
+                    id="home_ImageContentRetailerRegistration"
+                    src="sap-icon://account"
+                />
+            </TileContent>
+        </GenericTile>
+        <GenericTile
+            id="home_genericTileRetailerListing"
+            class="sapUiSmallMarginBegin sapUiSmallMarginTop tileLayout"
+            header="Retailer Listing"
+            press="onPressRetailerListing"
+        >
+            <TileContent id="home_tileContentRetailerListing">
+                <ImageContent
+                    id="home_ImageContentRetailerListing"
+                    src="sap-icon://list"
+                />
+            </TileContent>
+        </GenericTile>
+        <GenericTile
+            id="home_genericTileRetailerOCndICMapping"
+            class="sapUiSmallMarginBegin sapUiSmallMarginTop tileLayout"
+            header="Retailer OC &amp; IC Mapping"
+            press="onPressReatilerMapping"
+        >
+            <TileContent id="home_tileContentRetailerOCndICMapping">
+                <ImageContent
+                    id="home_ImageContentRetailerOCndICMapping"
+                    src="sap-icon://factory"
+                />
+            </TileContent>
+        </GenericTile>
+    </Page>
+</mvc:View>
